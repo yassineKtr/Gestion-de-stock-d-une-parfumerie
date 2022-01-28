@@ -43,11 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\DB.cs" />
+    <Compile Include="Models\IPerfumeRepository.cs" />
+    <Compile Include="Models\IShelfRepository.cs" />
+    <Compile Include="Models\Perfume.cs" />
+    <Compile Include="Models\PerfumeRepository.cs" />
+    <Compile Include="Models\Shelf.cs" />
+    <Compile Include="Models\ShelfRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
