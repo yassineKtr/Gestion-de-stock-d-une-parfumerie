@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Gestion_de_stock_d_une_parfumerie.Tests</RootNamespace>
+    <RootNamespace>GestionStockCDN.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

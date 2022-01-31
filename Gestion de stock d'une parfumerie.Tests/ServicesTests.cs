@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Gestion_de_stock_d_une_parfumerie.Tests
+namespace GestionStockCDN.Tests
 {
     public class ServicesTests
     {
