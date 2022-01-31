@@ -11,6 +11,7 @@ namespace Gestion_de_stock_d_une_parfumerie.Models
         List<Shelf> getAllShelves();
         void addShelf(Shelf shelf);
         Shelf getShelfById(int id);
+        Shelf getShelfByBrand(String brand);
         void updateShelf(Shelf shelf);
         void deleteShelf(int id);
     }

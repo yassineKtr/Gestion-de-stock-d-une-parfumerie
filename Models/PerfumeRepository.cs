@@ -10,9 +10,9 @@ namespace Gestion_de_stock_d_une_parfumerie.Models
     public class PerfumeRepository : IPerfumeRepository
     {
         private List<Perfume> _context;
-        public PerfumeRepository()
+        public PerfumeRepository(DB db)
         {
-            _context = DB.getInstance().perfumes;
+            _context = db.perfumes;
         }
         public void addPerfume(Perfume perfume)
         {

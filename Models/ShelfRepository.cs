@@ -10,9 +10,9 @@ namespace Gestion_de_stock_d_une_parfumerie.Models
     public class ShelfRepository : IShelfRepository
     {
         private List<Shelf> _context;
-        public ShelfRepository()
+        public ShelfRepository(DB db)
         {
-            _context = DB.getInstance().shelves;
+            _context = db.shelves;
         }
         public void addShelf(Shelf shelf)
         {
@@ -42,6 +42,11 @@ namespace Gestion_de_stock_d_une_parfumerie.Models
             shelfToUpdate.brand = shelf.brand;
             shelfToUpdate.perfumes = shelf.perfumes;
 
+        }
+
+        public Shelf getShelfByBrand(string brand)
+        {
+            return _context.SingleOrDefault(r => r.brand == brand);
         }
     }
 }

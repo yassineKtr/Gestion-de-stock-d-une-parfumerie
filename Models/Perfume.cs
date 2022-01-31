@@ -11,14 +11,29 @@ namespace Gestion_de_stock_d_une_parfumerie.Models
         private int _id;
         private String _name;
         private decimal _price;
+        private String _brand;
 
         public int id { get { return _id; } set { _id = value; } }
         public String name { get { return _name; } set { _name = value; } }
-        public decimal price { get { return _price; } set { _price = value; } }
+        public decimal price {
+            get { return _price; } 
+            set {
+                if (promo != 0)
+                {
+                    _price = value - value * (decimal)promo;
+                }
+                else
+                {
+                    _price = value;
+                }
+             }
+        }
+        public String brand
+        {
+            get { return _brand; }
+            set { _brand = value; }
 
-        
-
-
-
+        }
+        public float promo { get; set; } = 0;   
     }
 }
