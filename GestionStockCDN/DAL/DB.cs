@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Gestion_de_stock_d_une_parfumerie.Models;
+using GestionStockCDN.Models;
 
-namespace Gestion_de_stock_d_une_parfumerie.DAL
+namespace GestionStockCDN.DAL
 {
     public  class DB 
     {
