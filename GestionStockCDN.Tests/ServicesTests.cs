@@ -28,7 +28,8 @@ namespace GestionStockCDN.Tests
             {
                 id = 1,
                 name = "moqName",
-                brand = "moqBrand"
+                brand = "moqBrand",
+                price = 10
 
             };
             perfumes = new List<Perfume>();
@@ -55,7 +56,8 @@ namespace GestionStockCDN.Tests
             {
                 id = 1,
                 name = "moqName",
-                brand = "moqBrand"
+                brand = "moqBrand",
+                price = 10,
 
             };
             var testShelve = new Shelf
@@ -79,8 +81,89 @@ namespace GestionStockCDN.Tests
             Assert.DoesNotContain(perfumes, p => p.id == testProduct.id);
             Assert.DoesNotContain(shelves, p => p.perfumes.Contains(testProduct.id));
         }
-        
-        
+
+        [Fact]
+        public void shouldUpdateProduct()
+        {
+            //Arrange
+            var testProduct = new Perfume
+            {
+                id = 1,
+                name = "moqName",
+                brand = "moqBrand",
+                price = 10
+
+            };
+            var newTestProduct = new Perfume
+            {
+                id = 1,
+                name = "NewMoqName",
+                brand = "moqBrand",
+                price = 100
+
+            };
+            
+            perfumes = new List<Perfume>();
+            perfumeRepository = new PerfumeRepository(perfumes);
+            shelfRepository = new ShelfRepository(shelves);
+            myService = new Services(shelfRepository, perfumeRepository);
+            perfumes.Add(testProduct);
+            //Act
+            myService.modifyProduct(newTestProduct);
+            //Assert
+            Assert.Contains(perfumes, p=>p.price==100);
+            Assert.DoesNotContain(perfumes, p => p.price == 10);
+        }
+
+        [Fact]
+        public void ShouldCheckIfProductIsAvailable()
+        {
+            //Arrange
+            var testProduct = new Perfume
+            {
+                id = 1,
+                name = "moqName",
+                brand = "moqBrand",
+                price = 10
+
+            };
+            perfumes = new List<Perfume>();
+            shelves = new List<Shelf>();
+            perfumeRepository = new PerfumeRepository(perfumes);
+            shelfRepository = new ShelfRepository(shelves);
+            myService = new Services(shelfRepository, perfumeRepository);
+            perfumes.Add(testProduct);
+            //Act
+            var result = myService.productAvailable(testProduct.id);
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void ShouldAddDiscount()
+        {
+            //Arrange
+            var testProduct = new Perfume
+            {
+                id = 1,
+                name = "moqName",
+                brand = "moqBrand",
+                price = 10
+
+            };
+            perfumes = new List<Perfume>();
+            shelves = new List<Shelf>();
+            perfumeRepository = new PerfumeRepository(perfumes);
+            shelfRepository = new ShelfRepository(shelves);
+            myService = new Services(shelfRepository, perfumeRepository);
+            perfumes.Add(testProduct);
+            //Act
+            myService.addDiscount(testProduct.id, 0.1);
+            //Assert
+            Assert.Contains(perfumes, p => p.price == 9);
+        }
+
+
 
 
     }

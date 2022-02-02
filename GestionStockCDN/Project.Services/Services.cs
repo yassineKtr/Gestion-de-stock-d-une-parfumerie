@@ -67,6 +67,7 @@ namespace GestionStockCDN.Project.Services
             if(_perfumeRepository.getPerfumeById(perfume.id) != null)
             {
                 _perfumeRepository.updatePerfume(perfume);
+                
                 return true;
             }
             return false;
@@ -80,6 +81,18 @@ namespace GestionStockCDN.Project.Services
                 return true;
             }
 
+            return false;
+        }
+
+        public bool addDiscount(int perfumeId,double discountVal)
+        {
+            var perfumeToUpdate = _perfumeRepository.getPerfumeById(perfumeId) ;
+            if (perfumeToUpdate != null)
+            {
+                perfumeToUpdate.promo = discountVal;
+                perfumeToUpdate.price -= perfumeToUpdate.price * discountVal;
+                return true;
+            }
             return false;
         }
 
