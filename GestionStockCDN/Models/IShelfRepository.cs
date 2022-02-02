@@ -10,9 +10,9 @@ namespace GestionStockCDN.Models
     {
         List<Shelf> getAllShelves();
         void addShelf(Shelf shelf);
-        Shelf getShelfById(int id);
+        
         Shelf getShelfByBrand(String brand);
         void updateShelf(Shelf shelf);
-        void deleteShelf(int id);
+        void deleteShelf(String brand);
     }
 }

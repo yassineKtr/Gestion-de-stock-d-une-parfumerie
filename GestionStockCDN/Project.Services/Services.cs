@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using GestionStockCDN.Models;
 
-namespace GestionStockCDN.Services
+
+namespace GestionStockCDN.Project.Services
 {
     public class Services
     {
-        IPerfumeRepository _perfumeRepository;
-        IShelfRepository _shelfRepository;
+        private IPerfumeRepository _perfumeRepository;
+        private IShelfRepository _shelfRepository;
         public Services(IShelfRepository shelfRepository, IPerfumeRepository perfumeRepository)
         {
             _perfumeRepository = perfumeRepository;
@@ -18,19 +19,36 @@ namespace GestionStockCDN.Services
 
         }
 
-        bool addNewProduct(Perfume perfume)
+        public bool addNewProduct(Perfume perfume)
         {
             if (_perfumeRepository.getPerfumeById(perfume.id)==null)
             {
                 _perfumeRepository.addPerfume(perfume);
-                 _shelfRepository.getShelfByBrand(perfume.brand).perfumes.Add(perfume.id);
+                if (_shelfRepository.getShelfByBrand(perfume.brand)!=null)
+                {
+
+                    _shelfRepository.getShelfByBrand(perfume.brand).perfumes.Add(perfume.id);
+                }
+                else
+                {
+                    var newShelf = new Shelf();
+                    newShelf.brand = perfume.brand;
+                    newShelf.perfumes= new List<int>(perfume.id);
+                    
+
+
+
+
+                    _shelfRepository.addShelf(newShelf);
+                }
+                 
                 
                 return true;
             }
             return false;
         }
 
-        bool deleteProduct(Perfume perfume)
+        public bool deleteProduct(Perfume perfume)
         {
             if (_perfumeRepository.getPerfumeById(perfume.id) != null)
             {
@@ -44,7 +62,7 @@ namespace GestionStockCDN.Services
             return false;
         }
 
-        bool modifyProduct(Perfume perfume)
+        public bool modifyProduct(Perfume perfume)
         {
             if(_perfumeRepository.getPerfumeById(perfume.id) != null)
             {
@@ -55,7 +73,7 @@ namespace GestionStockCDN.Services
 
         }
 
-        bool productAvailable(int perfumeId)
+        public bool productAvailable(int perfumeId)
         {
             if (_perfumeRepository.getPerfumeById(perfumeId) != null)
             {

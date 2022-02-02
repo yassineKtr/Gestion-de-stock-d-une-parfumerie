@@ -10,9 +10,9 @@ namespace GestionStockCDN.Models
     public class PerfumeRepository : IPerfumeRepository
     {
         private List<Perfume> _context;
-        public PerfumeRepository(DB db)
+        public PerfumeRepository(List<Perfume> perfumes)
         {
-            _context = db.perfumes;
+            _context = perfumes;
         }
         public void addPerfume(Perfume perfume)
         {
