@@ -30,11 +30,6 @@ namespace GestionStockCDN.Project.Services
                     var newShelf = new Shelf();
                     newShelf.brand = perfume.brand;
                     newShelf.perfumes= new List<int>(perfume.id);
-                    
-
-
-
-
                     _shelfRepository.addShelf(newShelf);
                 }
                  

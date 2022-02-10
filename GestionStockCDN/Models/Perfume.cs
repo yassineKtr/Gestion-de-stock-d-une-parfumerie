@@ -16,7 +16,6 @@ namespace GestionStockCDN.Models
         {
             get { return _brand; }
             set { _brand = value; }
-
         }
         public double promo { get; set; } = 0;
         public double price { get => _price; set => _price = value; }
