@@ -4,20 +4,10 @@ namespace GestionStockCDN.Models
 {
     public class Perfume
     {
-        private int _id;
-        private String _name;
-        private double _price;
-        private String _brand;
-
-        public int id { get { return _id; } set { _id = value; } }
-        public String name { get { return _name; } set { _name = value; } }
-        
-        public String brand
-        {
-            get { return _brand; }
-            set { _brand = value; }
-        }
+        public int id { get; set; }
+        public String name { get ; set ;}     
+        public String brand { get;set;}
         public double promo { get; set; } = 0;
-        public double price { get => _price; set => _price = value; }
+        public double price { get; set; }
     }
 }

@@ -26,9 +26,6 @@ namespace GestionStockCDN.Models
         {
             return _context;
         }
-
-        
-
         public void updateShelf(Shelf shelf)
         {
             var shelfToUpdate = _context.SingleOrDefault(r => r.brand == shelf.brand);
@@ -36,7 +33,6 @@ namespace GestionStockCDN.Models
             shelfToUpdate.perfumes = shelf.perfumes;
 
         }
-
         public Shelf getShelfByBrand(string brand)
         {
             return _context.SingleOrDefault(r => r.brand == brand);
