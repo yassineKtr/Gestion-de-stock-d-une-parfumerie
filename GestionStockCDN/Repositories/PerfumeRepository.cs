@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GestionStockCDN.Models
@@ -15,7 +16,7 @@ namespace GestionStockCDN.Models
             _context.Add(perfume);
         }
 
-        public void deletePerfume(int id)
+        public void deletePerfume(Guid id)
         {
             var perfumeToRemove = _context.SingleOrDefault(r => r.id == id);
             _context.Remove(perfumeToRemove);
@@ -26,7 +27,7 @@ namespace GestionStockCDN.Models
             return _context;
         }
 
-        public Perfume getPerfumeById(int id)
+        public Perfume getPerfumeById(Guid id)
         {
             return _context.SingleOrDefault(r => r.id == id);
         }
