@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GestionStockCDN.Models
 {
     public interface IPerfumeRepository
     {
         List<Perfume> getAllPerfumes();
-        Perfume getPerfumeById(int id);
+        Perfume getPerfumeById(Guid id);
         void addPerfume(Perfume perfume);
         void updatePerfume(Perfume perfume);
-        void deletePerfume(int id);
+        void deletePerfume(Guid id);
     }
 }

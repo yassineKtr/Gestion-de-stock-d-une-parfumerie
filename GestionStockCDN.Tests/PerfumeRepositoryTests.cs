@@ -34,7 +34,7 @@ namespace GestionStockCDN.Tests
             var testProduct = new Perfume()
             {
                 brand = "moqBrand",
-                id = 1,
+                id = new System.Guid(),
                 price = 10
             };
             _perfumes.Add(testProduct);
@@ -54,13 +54,13 @@ namespace GestionStockCDN.Tests
             var testProduct1 = new Perfume()
             {
                 brand = "moqBrand",
-                id = 1,
+                id = new System.Guid(),
                 price = 10
             };
             var testProduct2 = new Perfume()
             {
                 brand = "moqBrand1",
-                id = 2,
+                id = new System.Guid(),
                 price = 10
             };
             _perfumes.Add(testProduct1);
@@ -85,13 +85,13 @@ namespace GestionStockCDN.Tests
             var testProduct1 = new Perfume()
             {
                 brand = "moqBrand",
-                id = 1,
+                id = new System.Guid(),
                 price = 10
             };
             var testProduct2 = new Perfume()
             {
                 brand = "moqBrand1",
-                id = 2,
+                id = new System.Guid(),
                 price = 10
             };
             _perfumes.Add(testProduct1);
@@ -114,14 +114,14 @@ namespace GestionStockCDN.Tests
             {
                 name = "moqName",
                 brand = "moqBrand",
-                id = 1,
+                id = new System.Guid(),
                 price = 10
             };
             var testProduct2 = new Perfume()
             { 
                 name = "moqName1",
                 brand = "moqBrand",
-                id = 1,
+                id = new System.Guid(),
                 price = 10
             };
             _perfumes.Add(testProduct1);

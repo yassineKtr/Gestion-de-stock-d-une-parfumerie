@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GestionStockCDN.Models;
 
 
@@ -23,13 +24,13 @@ namespace GestionStockCDN.Project.Services
                 if (_shelfRepository.getShelfByBrand(perfume.brand)!=null)
                 {
 
-                    _shelfRepository.getShelfByBrand(perfume.brand).perfumes.Add(perfume.id);
+                    _shelfRepository.getShelfByBrand(perfume.brand).perfumes.Add(perfume);
                 }
                 else
                 {
                     var newShelf = new Shelf();
                     newShelf.brand = perfume.brand;
-                    newShelf.perfumes= new List<int>(perfume.id);
+                    newShelf.perfumes= new List<Perfume>(perfume);
                     _shelfRepository.addShelf(newShelf);
                 }
                                  
@@ -42,7 +43,7 @@ namespace GestionStockCDN.Project.Services
         {
             if (_perfumeRepository.getPerfumeById(perfume.id) != null)
             {
-                _shelfRepository.getShelfByBrand(perfume.brand).perfumes.Remove(perfume.id);
+                _shelfRepository.getShelfByBrand(perfume.brand).perfumes.Remove(perfume);
                 _perfumeRepository.deletePerfume(perfume.id);
                 
 
@@ -64,7 +65,7 @@ namespace GestionStockCDN.Project.Services
 
         }
 
-        public bool productAvailable(int perfumeId)
+        public bool productAvailable(Guid perfumeId)
         {
             if (_perfumeRepository.getPerfumeById(perfumeId) != null)
             {
@@ -74,7 +75,7 @@ namespace GestionStockCDN.Project.Services
             return false;
         }
 
-        public bool addDiscount(int perfumeId,double discountVal)
+        public bool addDiscount(Guid perfumeId,double discountVal)
         {
             var perfumeToUpdate = _perfumeRepository.getPerfumeById(perfumeId) ;
             if (perfumeToUpdate != null)
