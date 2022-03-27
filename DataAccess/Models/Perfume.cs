@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    internal class Perfume
+    public class Perfume
     {
         public Guid id { get; set; }
         public String name { get; set; }
