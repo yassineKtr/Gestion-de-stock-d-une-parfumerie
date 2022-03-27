@@ -29,9 +29,7 @@ namespace GestionStockCDN.Models
         public void updateShelf(Shelf shelf)
         {
             var shelfToUpdate = _context.SingleOrDefault(r => r.brand == shelf.brand);
-            //shelfToUpdate.brand = shelf.brand;
             shelfToUpdate.perfumes = shelf.perfumes;
-
         }
         public Shelf getShelfByBrand(string brand)
         {
