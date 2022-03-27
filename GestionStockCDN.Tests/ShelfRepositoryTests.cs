@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GestionStockCDN.Models;
+using Moq;
 using Xunit;
 
 namespace GestionStockCDN.Tests
@@ -18,7 +20,7 @@ namespace GestionStockCDN.Tests
             var testProduct = new Shelf()
             {
                 brand = "moqBrand",
-                perfumes = new List<int> { 1,2,3}
+                perfumes = new List<Perfume> {new Mock<>() }
             };
             //Act
             _shelfRepository.addShelf(testProduct);
