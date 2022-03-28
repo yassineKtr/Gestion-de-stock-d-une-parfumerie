@@ -8,7 +8,7 @@ namespace DataAccess.Models
 {
     public class Perfume
     {
-        public Guid id { get; set; }
+        public Guid id { get; set; } = Guid.NewGuid();
         public String name { get; set; }
         public String brand { get; set; }
         public double promo { get; set; } = 0;
