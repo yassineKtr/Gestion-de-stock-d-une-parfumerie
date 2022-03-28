@@ -18,7 +18,7 @@ namespace DataAccess.DbAccess
         {
             _config = config;
         }
-
+        
         public async Task<IEnumerable<T>> LoadData<T, U>(
             String query,
             U parameters,

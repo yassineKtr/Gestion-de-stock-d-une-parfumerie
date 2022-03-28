@@ -18,8 +18,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GestionStockCDN\GestionStockCDN.csproj" />
-  </ItemGroup>
-
 </Project>
