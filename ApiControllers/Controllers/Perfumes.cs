@@ -8,14 +8,18 @@ namespace ApiControllers.Controllers
     [ApiController]
     public class Perfumes : ControllerBase
     {
-        private readonly IPerfumeRepository repo;
+        private readonly IPerfumeRepository _repo;
+        public Perfumes(IPerfumeRepository repo)
+        {
+            _repo = repo;   
+        }
         // GET: api/<Parfumerie>
         [HttpGet]
         public async Task<IResult> Get()
         {
             try
             {
-                return Results.Ok(await repo.GetPerfumes());
+                return Results.Ok(await _repo.GetPerfumes());
             }
             catch(Exception ex)
             {
@@ -29,7 +33,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-               var results = await repo.GetPerfume(id);
+               var results = await _repo.GetPerfume(id);
                if (results == null) return Results.NotFound();
                return Results.Ok(results);
             }
@@ -43,10 +47,10 @@ namespace ApiControllers.Controllers
         [HttpPost]
         public async Task<IResult> Post([FromBody] Perfume perfume)
         {
-            //Fix repo == null 32
+            
             try
             {
-               await repo.AddPerfume(perfume);
+               await _repo.AddPerfume(perfume);
                 return Results.Ok();
             }
             catch (Exception ex)

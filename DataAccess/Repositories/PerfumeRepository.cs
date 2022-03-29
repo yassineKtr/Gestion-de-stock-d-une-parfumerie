@@ -40,7 +40,7 @@ namespace DataAccess.Repositories
         {
             var sql = $"SELECT * FROM perfumes WHERE id = @id";
             var queryArgs = new { id = id };
-            var result = await _db.LoadData<Perfume, dynamic>(sql, queryArgs);
+            var result = await _db.LoadData<Perfume,dynamic>(sql, queryArgs);
             return result.FirstOrDefault();
         }
 
