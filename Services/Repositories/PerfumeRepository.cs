@@ -1,12 +1,8 @@
 ﻿using DataAccess.DbAccess;
 using DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ParfumerieServices.Repositories;
 
-namespace DataAccess.Repositories
+namespace ParfumerieServices.Repositories
 {
     public class PerfumeRepository : IPerfumeRepository
     {
@@ -47,18 +43,19 @@ namespace DataAccess.Repositories
         public Task UpdatePerfume(Perfume perfume)
         {
             var sql = "UPDATE perfumes " +
-                "SET name =@name," +
-                "brand =@brand," +
-                "promo =@promo," +
-                "price =@price" +
-                "WHERE id=@id";
+                "SET name = @name, " +
+                "brand = @brand, " +
+                "promo = @promo, " +
+                "price = @price " +
+                "WHERE id = @id";
             var parameters = new
             {
-                id = perfume.id,
+                
                 name = perfume.name,
                 brand = perfume.brand,
                 promo = perfume.promo,
-                price = perfume.price
+                price = perfume.price,
+                id = perfume.id,
             };
             return _db.SaveData(sql, parameters);
         }
@@ -68,5 +65,7 @@ namespace DataAccess.Repositories
             var sql = "DELETE FROM perfumes WHERE id = @id";
             return _db.SaveData(sql, new { id = perfume.id });
         }
+
+
     }
 }

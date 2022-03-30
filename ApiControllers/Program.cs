@@ -1,4 +1,6 @@
 using DataAccess.DbAccess;
+using ParfumerieServices.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISqlDataAccess,SqlDataAccess>();
-builder.Services.AddSingleton<IPerfumeRepository, PerfumeRepository>(); 
+builder.Services.AddSingleton<IPerfumeRepository, PerfumeRepository>();
+builder.Services.AddSingleton<IPerfumeServices, PerfumeServices>();
 
 var app = builder.Build();
 

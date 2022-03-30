@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiControllers", "ApiContro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{364AD6C5-4858-493C-B7C0-796BD98D2476}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParfumerieServices", "Services\ParfumerieServices.csproj", "{B6D4D253-1124-436C-8183-442F079D036B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{364AD6C5-4858-493C-B7C0-796BD98D2476}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{364AD6C5-4858-493C-B7C0-796BD98D2476}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{364AD6C5-4858-493C-B7C0-796BD98D2476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D4D253-1124-436C-8183-442F079D036B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D4D253-1124-436C-8183-442F079D036B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D4D253-1124-436C-8183-442F079D036B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D4D253-1124-436C-8183-442F079D036B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

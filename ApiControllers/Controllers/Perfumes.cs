@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using ParfumerieServices.Repositories;
 
 
 namespace ApiControllers.Controllers
@@ -8,8 +8,8 @@ namespace ApiControllers.Controllers
     [ApiController]
     public class Perfumes : ControllerBase
     {
-        private readonly IPerfumeRepository _repo;
-        public Perfumes(IPerfumeRepository repo)
+        private readonly IPerfumeServices _repo;
+        public Perfumes(IPerfumeServices repo)
         {
             _repo = repo;   
         }
@@ -19,7 +19,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                return Results.Ok(await _repo.GetPerfumes());
+                return Results.Ok(await _repo.GetAllPerfumes());
             }
             catch(Exception ex)
             {
@@ -61,14 +61,75 @@ namespace ApiControllers.Controllers
 
         // PUT api/<Parfumerie>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IResult> Put(Guid id, [FromBody] Perfume perfume)
         {
+            try
+            {
+                await _repo.UpdatePerfume(perfume);
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
         }
 
         // DELETE api/<Parfumerie>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IResult> Delete(Guid id,[FromBody] Perfume perfume)
         {
+            try
+            {
+                await _repo.RemovePerfume(perfume);
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
+        }
+
+        
+        [HttpGet("brand/{brand}")]
+        public async Task<IResult> GetPerfumesByBrand(string brand)
+        {
+
+            try
+            {
+                var results = await _repo.GetPerfumesByBrand(brand);
+                if (results == null) return Results.NotFound();
+                return Results.Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
+        }
+
+        [HttpGet("brand/")]
+        public async Task<IResult> GetBrands()
+        {
+            try
+            {
+                return Results.Ok(await _repo.GetAllBrands());
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
+        }
+        [HttpPut("promo/{perfumeId}/{amount}")]
+        public async Task<IResult> AddPromoToPerfume(Guid perfumeId,double amount)
+        {
+            try
+            {
+                await _repo.AddPromo(perfumeId,amount);
+                return Results.Ok();
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem(ex.Message);
+            }
         }
     }
 }

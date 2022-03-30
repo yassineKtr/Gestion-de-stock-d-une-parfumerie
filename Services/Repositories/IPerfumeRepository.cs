@@ -1,6 +1,6 @@
 ﻿using DataAccess.Models;
 
-namespace DataAccess.Repositories
+namespace ParfumerieServices.Repositories
 {
     public interface IPerfumeRepository
     {

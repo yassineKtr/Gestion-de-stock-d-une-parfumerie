@@ -17,8 +17,8 @@ namespace DataAccess.DbAccess
         
         public async Task<IEnumerable<T>> LoadData<T,U>(
             string query,
-            U parameters,
-            string connectionString = "Default")
+            U parameters
+            )
         {
             await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
             await connection.OpenAsync();
@@ -27,8 +27,8 @@ namespace DataAccess.DbAccess
 
         public async Task SaveData<T>(
             string query,
-            T parameters,
-            string connectionString = "Default")
+            T parameters
+            )
         {
             await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
             await connection.OpenAsync();
