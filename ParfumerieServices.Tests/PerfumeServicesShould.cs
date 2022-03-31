@@ -75,26 +75,5 @@ namespace ParfumerieServices.Tests
             Assert.True(expected.Equals(result));
         }
 
-        [Fact]
-        public  void UpdatePerfume()
-        {
-            //Arrange
-            var mockResults = TestMethodes.GetPerfumeById();
-            var perfumeToBeModified = mockResults.Result;
-            var perfumeAfterMod = perfumeToBeModified;
-            perfumeAfterMod.brand = "newBrand";
-            var mockRepo = new Mock<IPerfumeRepository>();
-            mockRepo.Setup(x => x.UpdatePerfume(perfumeToBeModified)).Returns(Task.FromResult(perfumeAfterMod));
-            var expected = mockResults;
-            //Act
-            var result = Task.FromResult(mockRepo.Object.UpdatePerfume(perfumeToBeModified));
-
-            //Assert
-            Assert.True(expected.Equals(result));
-        }
-
-        
-
-
     }
 }
