@@ -2,8 +2,6 @@
 
 namespace DataAccess.DbAccess
 {
-
-
     public class PostgreSqlConnection : IPostgreSqlConnection
     {
         private readonly NpgsqlConnectionStringBuilder _connectionStringBuilder;
@@ -18,8 +16,6 @@ namespace DataAccess.DbAccess
                     Database = configuration.DataBase, 
                     Password = configuration.Password };
         }
-
-
         public NpgsqlConnection GetSqlConnection()
         {
             return new(_connectionStringBuilder.ConnectionString);

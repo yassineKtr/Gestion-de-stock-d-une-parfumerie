@@ -1,6 +1,5 @@
 ﻿using DataAccess.DbAccess;
 using DataAccess.Models;
-using ParfumerieServices.Repositories;
 
 namespace ParfumerieServices.Repositories
 {
@@ -26,7 +25,6 @@ namespace ParfumerieServices.Repositories
             return _db.SaveData(sql, parameters);
 
         }
-
         public Task<IEnumerable<Perfume>> GetPerfumes()
         {
             var sql = "SELECT * FROM perfumes";
@@ -39,7 +37,6 @@ namespace ParfumerieServices.Repositories
             var result = await _db.LoadData<Perfume,dynamic>(sql, queryArgs);
             return result.FirstOrDefault();
         }
-
         public Task UpdatePerfume(Perfume perfume)
         {
             var sql = "UPDATE perfumes " +
@@ -59,13 +56,10 @@ namespace ParfumerieServices.Repositories
             };
             return _db.SaveData(sql, parameters);
         }
-
         public Task DeletePerfume(Perfume perfume)
         {
             var sql = "DELETE FROM perfumes WHERE id = @id";
             return _db.SaveData(sql, new { id = perfume.id });
         }
-
-
     }
 }
