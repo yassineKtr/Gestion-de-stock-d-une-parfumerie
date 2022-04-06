@@ -3,7 +3,6 @@ using ParfumerieServices.Repositories;
 using ParfumerieServices.Services;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ParfumerieServices.Tests
