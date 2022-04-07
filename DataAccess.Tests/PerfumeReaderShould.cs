@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoFixture;
 using Dapper;
@@ -20,6 +21,10 @@ namespace DataAccess.Tests
 
         public PerfumeReaderShould()
         {
+            config = new ConfigurationBuilder()
+                .AddJsonFile(@"./appsettings.json")
+                .AddJsonFile($"appsettings.developement.json", optional: true)
+                .Build();
             _configuration = new PostgreSqlConfiguration(config);
             _buildPostgreSqlConnection = new PostgreSqlConnection(_configuration);
             _perfumeReader = new PerfumeReader(config);
