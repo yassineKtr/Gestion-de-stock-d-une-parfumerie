@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccess.Writers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiControllers.Controllers
 {
@@ -7,9 +8,11 @@ namespace ApiControllers.Controllers
     public class Perfumes : ControllerBase
     {
         private readonly IReadPerfume _reader;
-        public Perfumes(IReadPerfume reader)
+        private readonly IWritePerfume _writer;
+        public Perfumes(IReadPerfume reader, IWritePerfume writer)
         {
-            _reader = reader;   
+            _reader = reader;
+            _writer = writer;
         }
         // GET: api/<Parfumerie>
         [HttpGet]
@@ -48,7 +51,7 @@ namespace ApiControllers.Controllers
             
             try
             {
-               await _reader.AddPerfume(perfume);
+               await _writer.AddPerfume(perfume);
                 return Results.Ok();
             }
             catch (Exception ex)
@@ -63,7 +66,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                await _reader.UpdatePerfume(perfume);
+                await _writer.UpdatePerfume(perfume);
                 return Results.Ok();
             }
             catch (Exception ex)
@@ -78,7 +81,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                await _reader.DeletePerfume(id);
+                await _writer.DeletePerfume(id);
                 return Results.Ok();
             }
             catch (Exception ex)
@@ -121,7 +124,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                await _reader.AddPromo(perfumeId,amount);
+                await _writer.AddPromo(perfumeId,amount);
                 return Results.Ok();
             }
             catch (Exception ex)

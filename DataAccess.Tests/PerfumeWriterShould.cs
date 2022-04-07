@@ -6,28 +6,28 @@ using Dapper;
 using DataAccess.DbAccess;
 using DataAccess.Models;
 using DataAccess.Readers;
+using DataAccess.Writers;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
 namespace DataAccess.Tests
 {
-    public class PerfumeReaderShould
+    public class PerfumeWriterShould
     {
         private readonly PostgreSqlConfiguration _configuration ;
         private readonly IPostgreSqlConnection _buildPostgreSqlConnection;
         private readonly IReadPerfume _perfumeReader;
+        private readonly IWritePerfume _perfumeWriter;
         private readonly Fixture _fixture;
         private readonly IConfiguration config;
 
-        public PerfumeReaderShould()
+        public PerfumeWriterShould()
         {
-            config = new ConfigurationBuilder()
-                .AddJsonFile(@"./appsettings.json")
-                .AddJsonFile($"appsettings.developement.json", optional: true)
-                .Build();
+            
             _configuration = new PostgreSqlConfiguration(config);
             _buildPostgreSqlConnection = new PostgreSqlConnection(_configuration);
             _perfumeReader = new PerfumeReader(config);
+            _perfumeWriter = new PerfumeWriter(config);
             _fixture = new Fixture();
         }
 
