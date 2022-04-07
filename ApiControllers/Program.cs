@@ -1,7 +1,3 @@
-using DataAccess.DbAccess;
-using ParfumerieServices.Repositories;
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,9 +6,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<ISqlDataAccess,SqlDataAccess>();
-builder.Services.AddSingleton<IPerfumeRepository, PerfumeRepository>();
-builder.Services.AddSingleton<IPerfumeServices, PerfumeServices>();
+builder.Services.AddSingleton<IReadPerfume,PerfumeReader>();
+
 
 var app = builder.Build();
 

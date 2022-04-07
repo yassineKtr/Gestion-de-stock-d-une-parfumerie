@@ -2,7 +2,7 @@
 {
     public class Perfume
     {
-        public Guid id { get; set; } = Guid.NewGuid();
+        public Guid id { get; set; } 
         public string name { get; set; }
         public string brand { get; set; }
         public double promo { get; set; } = 0;
