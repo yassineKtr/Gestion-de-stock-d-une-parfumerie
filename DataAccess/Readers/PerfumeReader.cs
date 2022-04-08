@@ -14,7 +14,6 @@ namespace DataAccess.Readers
             _configuration = new PostgreSqlConfiguration(config);
             _buildPostgreSqlConnection = new PostgreSqlConnection(_configuration);
         }
-        
         public async Task<IEnumerable<Perfume>> GetPerfumes()
         {
             await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
@@ -36,7 +35,6 @@ namespace DataAccess.Readers
             var query = "SELECT DISTINCT(brand) FROM perfumes ORDER BY brand;";
             return await connection.QueryAsync<string>(query, new {});
         }
-        
         public async Task<Perfume?> GetPerfume(Guid id)
         {
             var query = $"SELECT * FROM perfumes WHERE id = @id";
