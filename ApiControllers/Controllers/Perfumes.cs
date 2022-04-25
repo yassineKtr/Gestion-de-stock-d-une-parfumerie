@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ParfumerieServices.Repositories;
-
+﻿using DataAccess.Writers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiControllers.Controllers
 {
@@ -8,10 +7,12 @@ namespace ApiControllers.Controllers
     [ApiController]
     public class Perfumes : ControllerBase
     {
-        private readonly IPerfumeServices _repo;
-        public Perfumes(IPerfumeServices repo)
+        private readonly IReadPerfume _reader;
+        private readonly IWritePerfume _writer;
+        public Perfumes(IReadPerfume reader, IWritePerfume writer)
         {
-            _repo = repo;   
+            _reader = reader;
+            _writer = writer;
         }
         // GET: api/<Parfumerie>
         [HttpGet]
@@ -19,7 +20,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                return Results.Ok(await _repo.GetAllPerfumes());
+                return Results.Ok(await _reader.GetPerfumes());
             }
             catch(Exception ex)
             {
@@ -33,7 +34,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-               var results = await _repo.GetPerfume(id);
+               var results = await _reader.GetPerfume(id);
                if (results == null) return Results.NotFound();
                return Results.Ok(results);
             }
@@ -50,7 +51,7 @@ namespace ApiControllers.Controllers
             
             try
             {
-               await _repo.AddPerfume(perfume);
+               await _writer.AddPerfume(perfume);
                 return Results.Ok();
             }
             catch (Exception ex)
@@ -65,7 +66,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                await _repo.UpdatePerfume(perfume);
+                await _writer.UpdatePerfume(perfume);
                 return Results.Ok();
             }
             catch (Exception ex)
@@ -76,11 +77,11 @@ namespace ApiControllers.Controllers
 
         // DELETE api/<Parfumerie>/5
         [HttpDelete("{id}")]
-        public async Task<IResult> Delete(Guid id,[FromBody] Perfume perfume)
+        public async Task<IResult> Delete(Guid id)
         {
             try
             {
-                await _repo.RemovePerfume(perfume);
+                await _writer.DeletePerfume(id);
                 return Results.Ok();
             }
             catch (Exception ex)
@@ -96,7 +97,7 @@ namespace ApiControllers.Controllers
 
             try
             {
-                var results = await _repo.GetPerfumesByBrand(brand);
+                var results = await _reader.GetPerfumesByBrand(brand);
                 if (results == null) return Results.NotFound();
                 return Results.Ok(results);
             }
@@ -111,7 +112,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                return Results.Ok(await _repo.GetAllBrands());
+                return Results.Ok(await _reader.GetAllBrands());
             }
             catch (Exception ex)
             {
@@ -123,7 +124,7 @@ namespace ApiControllers.Controllers
         {
             try
             {
-                await _repo.AddPromo(perfumeId,amount);
+                await _writer.AddPromo(perfumeId,amount);
                 return Results.Ok();
             }
             catch (Exception ex)
