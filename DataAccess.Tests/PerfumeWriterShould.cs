@@ -48,7 +48,7 @@ namespace DataAccess.Tests
             //Assert
             var result = _perfumeReader.GetPerfume(sut.id);
             var resultToBeTested = result.Result;
-            Assert.Equal(sut.name, resultToBeTested.name);
+            Assert.Equal(sut.name, resultToBeTested?.name);
         }
         [Fact]
         public async Task DeletePerfume()
@@ -77,8 +77,8 @@ namespace DataAccess.Tests
             //Assert
             var result = _perfumeReader.GetPerfume(sut.id);
             var resultToBeTested = result.Result;
-            Assert.Equal(expected: 0.25, resultToBeTested.promo);
-            Assert.Equal(expected: 75, resultToBeTested.price);
+            Assert.Equal(expected: 0.25, resultToBeTested?.promo);
+            Assert.Equal(expected: 75, resultToBeTested?.price);
         }
 
     }

@@ -1,5 +1,4 @@
-﻿using Dapper;
-using DataAccess.DbAccess;
+﻿using DataAccess.DbAccess;
 using DataAccess.Models;
 using Microsoft.Extensions.Configuration;
 
@@ -7,17 +6,13 @@ namespace DataAccess.Writers
 {
     public class PerfumeWriter : IWritePerfume
     {
-        private readonly PostgreSqlConfiguration _configuration;
-        private readonly IPostgreSqlConnection _buildPostgreSqlConnection;
+        private readonly IPostgresqlServices _postgresqlServices;
         public PerfumeWriter(IConfiguration config)
         {
-            _configuration = new PostgreSqlConfiguration(config);
-            _buildPostgreSqlConnection = new PostgreSqlConnection(_configuration);
+            _postgresqlServices = new PostgresqlServices(config);
         }
         public async Task AddPerfume(Perfume perfume)
         {
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
             var query = "INSERT INTO perfumes (id,name,brand,promo,price) VALUES (@id,@name,@brand,@promo,@price)";
             var parameters = new
             {
@@ -27,18 +22,16 @@ namespace DataAccess.Writers
                 promo = perfume.promo,
                 price = perfume.price,
             };
-            await connection.ExecuteAsync(query, parameters);
+            await _postgresqlServices.Execute(query, parameters);
         }
         public async Task AddPromo(Guid perfumeId, double amount)
         {
             var query = $"SELECT * FROM perfumes WHERE id = @id";
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
-            var result = await connection.QueryAsync<Perfume>(query, new { id = perfumeId });
-            var targetPerfume = result.FirstOrDefault();
-            var newPrice = targetPerfume.price;
-            var newPromo = targetPerfume.promo;
-            if (targetPerfume.promo != 0) newPrice /= (1 - targetPerfume.promo);
+            var result = await _postgresqlServices.QueryDb<Perfume>(query, new { id = perfumeId });
+            var targetPerfume = result?.FirstOrDefault();
+            var newPrice = targetPerfume?.price;
+            var newPromo = targetPerfume?.promo;
+            if (targetPerfume?.promo != 0) newPrice /= (1 - targetPerfume?.promo);
             newPromo = amount;
             newPrice *= (1 - amount);
             var updateQuery = "UPDATE perfumes " +
@@ -51,7 +44,7 @@ namespace DataAccess.Writers
                 price = newPrice,
                 id = perfumeId,
             };
-            await connection.ExecuteAsync(updateQuery, parameters);
+            await _postgresqlServices.Execute(updateQuery, parameters);
         }
         public async Task UpdatePerfume(Perfume perfume)
         {
@@ -69,16 +62,12 @@ namespace DataAccess.Writers
                 price = perfume.price,
                 id = perfume.id,
             };
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
-            await connection.ExecuteAsync(query, parameters);
+            await _postgresqlServices.Execute(query, parameters);
         }
         public async Task DeletePerfume(Guid perfumeId)
         {
             var query = "DELETE FROM perfumes WHERE id = @id";
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
-            await connection.ExecuteAsync(query, new { id = perfumeId });
+            await _postgresqlServices.Execute(query, new { id = perfumeId });
         }
     }
 }

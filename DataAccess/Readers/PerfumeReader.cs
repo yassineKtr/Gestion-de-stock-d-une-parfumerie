@@ -1,5 +1,4 @@
-﻿using Dapper;
-using DataAccess.DbAccess;
+﻿using DataAccess.DbAccess;
 using DataAccess.Models;
 using Microsoft.Extensions.Configuration;
 
@@ -7,41 +6,32 @@ namespace DataAccess.Readers
 {
     public class PerfumeReader : IReadPerfume
     {
-        private readonly PostgreSqlConfiguration _configuration;
-        private readonly IPostgreSqlConnection _buildPostgreSqlConnection;
+        private readonly IPostgresqlServices _postgresqlServices;
         public PerfumeReader(IConfiguration config)
         {
-            _configuration = new PostgreSqlConfiguration(config);
-            _buildPostgreSqlConnection = new PostgreSqlConnection(_configuration);
+            _postgresqlServices = new PostgresqlServices(config);
         }
-        public async Task<IEnumerable<Perfume>> GetPerfumes()
+      
+        public async Task<IEnumerable<Perfume>?> GetPerfumes()
         {
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
             var query = "SELECT * FROM perfumes";
-            return await connection.QueryAsync<Perfume>(query, new{});
+            return await _postgresqlServices.QueryDb<Perfume>(query, new { });
         }
-        public async Task<IEnumerable<Perfume>> GetPerfumesByBrand(string brand)
+        public async Task<IEnumerable<Perfume>?> GetPerfumesByBrand(string brand)
         {
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
             var query = "SELECT * FROM perfumes WHERE brand = @brand";
-            return await connection.QueryAsync<Perfume>(query, new {brand = brand });
+            return await _postgresqlServices.QueryDb<Perfume>(query, new {brand = brand });
         }
-        public async Task<IEnumerable<string>> GetAllBrands()
+        public async Task<IEnumerable<string>?> GetAllBrands()
         {
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
             var query = "SELECT DISTINCT(brand) FROM perfumes ORDER BY brand;";
-            return await connection.QueryAsync<string>(query, new {});
+            return await _postgresqlServices.QueryDb<string>(query, new {});
         }
         public async Task<Perfume?> GetPerfume(Guid id)
         {
             var query = $"SELECT * FROM perfumes WHERE id = @id";
-            await using var connection = _buildPostgreSqlConnection.GetSqlConnection();
-            await connection.OpenAsync();
-            var result = await connection.QueryAsync<Perfume>(query, new { id = id });
-            return result.FirstOrDefault();
+            var result = await _postgresqlServices.QueryDb<Perfume>(query, new { id = id });
+            return result?.FirstOrDefault();
         }
     }
 }

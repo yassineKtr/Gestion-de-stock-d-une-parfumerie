@@ -1,4 +1,3 @@
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IReadPerfume,PerfumeReader>();
 builder.Services.AddSingleton<IWritePerfume, PerfumeWriter>();
+builder.Services.AddSingleton<IPostgresqlServices,PostgresqlServices >();
 
 
 var app = builder.Build();

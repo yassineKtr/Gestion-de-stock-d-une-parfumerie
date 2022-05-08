@@ -1,5 +1,4 @@
-﻿using DataAccess.Writers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ApiControllers.Controllers
 {
