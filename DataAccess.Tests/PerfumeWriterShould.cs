@@ -32,7 +32,7 @@ namespace DataAccess.Tests
             //Act
             await _perfumeWriter.AddPerfume(sut);
             //Assert
-            var result = _perfumeReader.GetPerfume(sut.id);
+            var result = _perfumeReader.GetPerfume(sut.Id);
             var resultToBeTested = result.Result;
             Assert.NotNull(resultToBeTested);
         }
@@ -43,12 +43,12 @@ namespace DataAccess.Tests
             var sut = _fixture.Create<Perfume>();
             await _perfumeWriter.AddPerfume(sut);
             //Act
-            sut.name = "Updated";
+            sut.Name = "Updated";
             await _perfumeWriter.UpdatePerfume(sut);
             //Assert
-            var result = _perfumeReader.GetPerfume(sut.id);
+            var result = _perfumeReader.GetPerfume(sut.Id);
             var resultToBeTested = result.Result;
-            Assert.Equal(sut.name, resultToBeTested?.name);
+            Assert.Equal(sut.Name, resultToBeTested?.Name);
         }
         [Fact]
         public async Task DeletePerfume()
@@ -57,9 +57,9 @@ namespace DataAccess.Tests
             var sut = _fixture.Create<Perfume>();
             await _perfumeWriter.AddPerfume(sut);
             //Act
-            await _perfumeWriter.DeletePerfume(sut.id);
+            await _perfumeWriter.DeletePerfume(sut.Id);
             //Assert
-            var result = _perfumeReader.GetPerfume(sut.id);
+            var result = _perfumeReader.GetPerfume(sut.Id);
             var resultToBeTested = result.Result;
             Assert.Null(resultToBeTested);
         }
@@ -68,17 +68,17 @@ namespace DataAccess.Tests
         {
             //Arrange
             var sut = _fixture.Build<Perfume>()
-                .With(x => x.promo, 0)
-                .With(x => x.price, 100)
+                .With(x => x.Promo, 0)
+                .With(x => x.Price, 100)
                 .Create();
             await _perfumeWriter.AddPerfume(sut);
             //Act
-            await _perfumeWriter.AddPromo(sut.id,0.25);
+            await _perfumeWriter.AddPromo(sut.Id,0.25);
             //Assert
-            var result = _perfumeReader.GetPerfume(sut.id);
+            var result = _perfumeReader.GetPerfume(sut.Id);
             var resultToBeTested = result.Result;
-            Assert.Equal(expected: 0.25, resultToBeTested?.promo);
-            Assert.Equal(expected: 75, resultToBeTested?.price);
+            Assert.Equal(expected: 0.25, resultToBeTested?.Promo);
+            Assert.Equal(expected: 75, resultToBeTested?.Price);
         }
 
     }

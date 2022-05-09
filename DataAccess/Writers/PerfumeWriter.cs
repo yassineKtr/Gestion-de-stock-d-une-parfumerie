@@ -16,11 +16,11 @@ namespace DataAccess.Writers
             var query = "INSERT INTO perfumes (id,name,brand,promo,price) VALUES (@id,@name,@brand,@promo,@price)";
             var parameters = new
             {
-                id = perfume.id,
-                name = perfume.name,
-                brand = perfume.brand,
-                promo = perfume.promo,
-                price = perfume.price,
+                id = perfume.Id,
+                name = perfume.Name,
+                brand = perfume.Brand,
+                promo = perfume.Promo,
+                price = perfume.Price,
             };
             await _postgresqlServices.Execute(query, parameters);
         }
@@ -29,9 +29,9 @@ namespace DataAccess.Writers
             var query = $"SELECT * FROM perfumes WHERE id = @id";
             var result = await _postgresqlServices.QueryDb<Perfume>(query, new { id = perfumeId });
             var targetPerfume = result?.FirstOrDefault();
-            var newPrice = targetPerfume?.price;
-            var newPromo = targetPerfume?.promo;
-            if (targetPerfume?.promo != 0) newPrice /= (1 - targetPerfume?.promo);
+            var newPrice = targetPerfume?.Price;
+            var newPromo = targetPerfume?.Promo;
+            if (targetPerfume?.Promo != 0) newPrice /= (1 - targetPerfume?.Promo);
             newPromo = amount;
             newPrice *= (1 - amount);
             var updateQuery = "UPDATE perfumes " +
@@ -56,11 +56,11 @@ namespace DataAccess.Writers
                         "WHERE id = @id";
             var parameters = new
             {
-                name = perfume.name,
-                brand = perfume.brand,
-                promo = perfume.promo,
-                price = perfume.price,
-                id = perfume.id,
+                name = perfume.Name,
+                brand = perfume.Brand,
+                promo = perfume.Promo,
+                price = perfume.Price,
+                id = perfume.Id,
             };
             await _postgresqlServices.Execute(query, parameters);
         }

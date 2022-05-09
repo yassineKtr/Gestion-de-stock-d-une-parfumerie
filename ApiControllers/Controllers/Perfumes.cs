@@ -13,7 +13,6 @@ namespace ApiControllers.Controllers
             _reader = reader;
             _writer = writer;
         }
-        // GET: api/<Parfumerie>
         [HttpGet]
         public async Task<IResult> Get()
         {
@@ -26,8 +25,6 @@ namespace ApiControllers.Controllers
                 return Results.Problem(ex.Message);
             }
         }
-
-        // GET api/<Parfumerie>/5
         [HttpGet("{id}")]
         public async Task<IResult> Get(Guid id)
         {
@@ -42,8 +39,6 @@ namespace ApiControllers.Controllers
                 return Results.Problem(ex.Message);
             }
         }
-
-        // POST api/<Parfumerie>
         [HttpPost]
         public async Task<IResult> Post([FromBody] Perfume perfume)
         {
@@ -58,8 +53,6 @@ namespace ApiControllers.Controllers
                 return Results.Problem(ex.Message);
             }
         }
-
-        // PUT api/<Parfumerie>/5
         [HttpPut("{id}")]
         public async Task<IResult> Put(Guid id, [FromBody] Perfume perfume)
         {
@@ -73,8 +66,6 @@ namespace ApiControllers.Controllers
                 return Results.Problem(ex.Message);
             }
         }
-
-        // DELETE api/<Parfumerie>/5
         [HttpDelete("{id}")]
         public async Task<IResult> Delete(Guid id)
         {
@@ -88,8 +79,6 @@ namespace ApiControllers.Controllers
                 return Results.Problem(ex.Message);
             }
         }
-
-        
         [HttpGet("brand/{brand}")]
         public async Task<IResult> GetPerfumesByBrand(string brand)
         {
@@ -105,7 +94,6 @@ namespace ApiControllers.Controllers
                 return Results.Problem(ex.Message);
             }
         }
-
         [HttpGet("brand/")]
         public async Task<IResult> GetBrands()
         {
