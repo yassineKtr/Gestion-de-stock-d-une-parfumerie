@@ -1,2 +1,4 @@
 ﻿global using DataAccess.Models;
-global using ParfumerieServices.Services;
+global using DataAccess.Readers;
+global using DataAccess.Writers;
+global using DataAccess.DbAccess;
